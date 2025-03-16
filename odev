@@ -1,0 +1,116 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+//Hasta bilgilerini toplayacagimiz bir struct olusturuyoruz
+typedef struct{
+   int tc[11];
+  char Ad[50];
+  int yas;
+  char sikayet[30];
+  int oncelik;
+  int receteNo;
+} Hasta;
+//Kaydedebilicegimiz hasta sayisini belirleyip recete numarasini baslangicini 1000 olarak alıyoruz
+ Hasta hastaListesi[100];
+int hastaSayisi = 0;
+int receteSay = 1000;
+
+//Kullanicinin hasta bilgilerini dolduracak fonksiyon
+void hastaEkle() {
+
+  Hasta yeniHasta;
+    printf("Hasta TC: ");
+    scanf("%d", yeniHasta.tc);
+  printf("Hasta Adi : ");
+  scanf("%s", yeniHasta.Ad);
+  printf("Yas: ");
+  scanf("%d", &yeniHasta.yas);
+  printf("Sikayet:");
+  scanf("%s", &yeniHasta.sikayet);
+  printf("Oncelik Seviyesi (1: Cok Acil, 2: Orta, 3: Normal): ");
+  scanf("%d", &yeniHasta.oncelik);
+
+
+  yeniHasta.receteNo = receteSay++;
+  hastaListesi[hastaSayisi++] = yeniHasta;
+  printf("Hasta kaydedildi!\n");
+
+}
+//Belirledigimiz dereceye gore hastalari oncelikliden daha az oncelikliye gore siraliyoruz
+void oncelikSirasi() {
+    for (int i = 0; i < hastaSayisi - 1; i++) {
+        for (int j = 0; j < hastaSayisi - i - 1; j++) {
+            if (hastaListesi[j].oncelik > hastaListesi[j + 1].oncelik) {
+                Hasta temp = hastaListesi[j];
+                hastaListesi[j] = hastaListesi[j + 1];
+                hastaListesi[j + 1] = temp;
+            }
+        }
+    }
+}
+//Bizi yapmak istedigimiz isleme goturecek fonksıyon
+void fonksiyonlar() {
+    printf("\n-=- Acil Servis Sistemi -=-\n");
+    printf("==> 1. Hasta Ekle\n");
+    printf("==> 2. Hasta Listesi Goruntule\n");
+    printf("==> 3. Cikis\n");
+    printf("Seciminiz: ");
+}
+//hasta kayitlarini oncelik ve yasa gore ayirip ekrana yazdiran fonksiyon
+void mevcutHastalar() {
+    if (hastaSayisi == 0) {
+        printf("Kayıtlı hasta bulunmamaktadır.\n");
+        return;
+    }
+
+    oncelikSirasi();
+
+    printf("\n🔹 **COCUK SERVIS (0-17 yas)**\n");
+    for (int i = 0; i < hastaSayisi; i++) {
+        if (hastaListesi[i].yas < 18) {
+            printf("%d. Hasta\n", i + 1);
+            printf("MSH|^~\\&|HastaneSistemi|AcilServis|HastaKayit|MerkeziSistem|20250316||ADT^A01|MSG%05d|P|2.3\n", i + 1);
+            printf("PID|||%s^^^HastaneMRN||%s||%d||||||||||\n", hastaListesi[i].tc, hastaListesi[i].Ad, hastaListesi[i].yas);
+            printf("PV1||E|AcilServis^1^1^Hastane|||Doktor Ismi|||||||Acil|||||||\n");
+            printf("Recete No: %d\n", hastaListesi[i].receteNo);
+            printf("--------------------------------------\n");
+        }
+    }
+
+    printf("\n🔹 **YETISKIN SERVIS(18+ yas)**\n");
+    for (int i = 0; i < hastaSayisi; i++) {
+        if (hastaListesi[i].yas >= 18) {
+            printf("%d. Hasta\n", i + 1);
+            printf("MSH|^~\\&|HastaneSistemi|AcilServis|HastaKayit|MerkeziSistem|20250316||ADT^A01|MSG%05d|P|2.3\n", i + 1);
+            printf("PID|||%s^^^HastaneMRN||%s||%d||||||||||\n", hastaListesi[i].tc, hastaListesi[i].Ad, hastaListesi[i].yas);
+            printf("PV1||E|AcilServis^1^1^Hastane|||Doktor Ismi|||||||Acil|||||||\n");
+            printf("Recete No: %d\n", hastaListesi[i].receteNo);
+            printf("--------------------------------------\n");
+        }
+    }
+}
+//isleme goturmek icin girilecek sayinin yapacagi islemler
+int main() {
+    int secim;
+    while (1) {
+       fonksiyonlar();
+        scanf("%d", &secim);
+
+        switch (secim) {
+            case 1:
+                hastaEkle();
+            break;
+            case 2:
+               mevcutHastalar();
+            break;
+            case 3:
+                printf("Sistemden cikiliyor...\n");
+            return 0;
+            default:
+                printf("Gecersiz secim, tekrar deneyin.\n");
+            return 0;
+        }
+    }
+
+}
+
