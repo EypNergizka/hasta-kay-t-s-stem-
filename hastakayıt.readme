@@ -1,0 +1,44 @@
+Acil Servis Hasta Kayıt ve Yönetim Sistemi
+Bu proje, bir acil servis sistemi için hastaların bilgilerini toplama, sıralama ve görüntüleme işlemlerini gerçekleştiren bir uygulamadır. Kullanıcılar hasta ekleyebilir, hasta listesini görüntüleyebilir ve sistemden çıkış yapabilir.
+
+Özellikler
+Hasta Ekleme: Kullanıcı, hasta bilgilerini (TC, ad, yaş, şikayet, öncelik seviyesi) sisteme girebilir. Her hastaya benzersiz bir reçete numarası atanır.
+
+Hasta Listesi Görüntüleme: Kayıtlı hastaların listesi iki kategoriye ayrılarak görüntülenir:
+
+Çocuk Servis (0-17 yaş)
+
+Yetişkin Servis (18+ yaş)
+
+Hastalar öncelik seviyelerine göre sıralanır (1: Çok Acil, 2: Orta, 3: Normal).
+
+Sistemden Çıkış: Kullanıcı programı güvenli bir şekilde kapatabilir.
+
+Kullanılan Veri Yapıları ve Algoritmalar
+Struct: Hasta bilgilerini depolamak için kullanılmıştır.
+
+Bubble Sort: Hastaların öncelik seviyelerine göre sıralanması için kullanılmıştır.
+
+Fonksiyonlar
+hastaEkle(): Yeni hasta bilgilerini toplar ve listeye ekler.
+
+oncelikSirasi(): Hastaları öncelik seviyelerine göre sıralar.
+
+fonksiyonlar(): Ana menüyü kullanıcıya sunar ve seçimi yönlendirir.
+
+mevcutHastalar(): Kayıtlı hastaları yaş kategorilerine ayırır ve ekrana yazdırır.
+
+Kullanım
+Program başlatıldığında, kullanıcıdan bir seçim yapması istenir.
+
+1: Yeni hasta eklemek için.
+
+2: Mevcut hasta listesini görüntülemek için.
+
+3: Programdan çıkmak için.
+
+Hasta ekleme sırasında, kullanıcıdan TC kimlik, ad, yaş, şikayet ve öncelik bilgisi istenir.
+
+Hasta listesi görüntülendiğinde, hastalar öncelik sırasına göre düzenlenmiş şekilde iki kategoriye ayrılmış olarak listelenir.
+
+Kullanıcı 3 seçimini yaparsa, program sonlanır.
